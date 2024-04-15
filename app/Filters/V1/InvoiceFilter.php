@@ -5,14 +5,15 @@ namespace App\Filters\V1;
 use App\Filters\ApiFilter;
 use Illuminate\Http\Request;
 
-class CustomerFilter extends ApiFilter{
+class InvoiceFilter extends ApiFilter{
+
     protected $allowedParms = [
-    'name' => ['eq'],
+    'customer_id' => ['eq'],
     'type' => ['eq'],
-    'email' => ['eq'],
-    'city' => ['eq'],
-    'address' => ['eq'],
-    'postalCode' => ['eq', 'gt', 'lt']
+    'status' => ['eq', 'ne'],
+    'billed_date' => ['eq', 'gt', 'lt', 'lte', 'gte'],
+    'paid_date' => ['eq', 'gt', 'lt', 'lte', 'gte'],
+    'amount' => ['eq', 'gt', 'lt', 'lte', 'gte']
     ];
 
     protected $columnMap = [
@@ -25,5 +26,6 @@ class CustomerFilter extends ApiFilter{
         'lte' => '<=',
         'gt' => '>',
         'gte' => '>=',
+        'ne' => '!='
     ];
 }
