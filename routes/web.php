@@ -1,42 +1,27 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-
-use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-Route::get('/setup', function(){
-    $credentials = [
-        'email' => 'admin@admin.com',
-        'password' => 'password'
-    ];
-    if (!Auth::attempt($credentials)){
-        $user = new User;
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-        $user->name = 'Admin';
-        $user->email = $credentials['email'];
-        $user->password = Hash::make($credentials['password']);
-
-        $user->save();
-
-        if(Auth::attempt($credentials)){
-            $adminToken = $user->createToken('admin-token', ['create', 'update', 'delete']);
-            $updateToken = $user->createToken('update-token', ['create', 'update']);
-            $basicToken = $user->createToken('basic-token');
-
-            return [
-                'admin' => $adminToken->plainTextToken,
-                'update' => $updateToken->plainTextToken,
-                'basic' => $basicToken->plainTextToken,
-            ];
-        }
-    }
+    Route::get('/customers', [CustomerController::class, 'index']);
 });
+
+require __DIR__.'/auth.php';
