@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\CustomerController as CustomerApi;
 use App\Models\Customer;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
 class CustomerController extends Controller
@@ -12,38 +13,37 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() 
     {
         $filter = '';
         $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $filter)->getBody()->__toString());
-        // $payload = json_decode($customers->getBody()->__toString());
-        $payload = $customers->data;
-        // dd($payload);    
-        return view('customers.index', ['customers' => $payload]);
+        $customersData = $customers->data;
+        $links = $customers->meta->links;
+        for($i = 1; $i< count($links)-1; $i++){
+            $url[$i] = $links[$i]->url;
+            $url[$i] = str_replace("http://localhost:8000/api/V1/customers?", '', $url[$i]);
+        }
+        // dd($customersData);    
+        return view('customers.index', ['customers' => $customersData,
+                                        'links' =>$url]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function page(string $page)
     {
-        //
+        $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $page)->getBody()->__toString());
+        $customersData = $customers->data;
+        $links = $customers->meta->links;
+        for($i = 1; $i< count($links)-1; $i++){
+            $url[$i] = $links[$i]->url;
+            $url[$i] = str_replace("http://localhost:8000/api/V1/customers?", '', $url[$i]);
+        }
+        // dd($url);    
+        return view('customers.index', ['customers' => $customersData,
+                                        'links' =>$url]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    public function filterResult(Response $query){
+        dd($query);
     }
 
     /**

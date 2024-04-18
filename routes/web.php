@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/customers', [CustomerController::class, 'index']);
+    Route::get('/customers/{page}', [CustomerController::class, 'page'])->name('customers.page');
+    Route::get('/customers', [CustomerController::class, 'filterResult'])->name('customers.filterResult');
 });
 
 require __DIR__.'/auth.php';
