@@ -16,42 +16,42 @@
         x-transition:leave="transition ease-in duration-300"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-90">
-        
+        @csrf
         <div class="flex flex-col py-2">
             <label for="type" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Type:
             </label>
-            <select name="type" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
-                <option value="All" selected="">All</option>
-                <option value="Individual">Individual client</option>
-                <option value="Business">Business client</option>
+            <select name="type" id="type" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
+                <option value="" selected="">All</option>
+                <option value="I">Individual client</option>
+                <option value="B">Business client</option>
             </select>
         </div>
         
         <div class="flex flex-col py-2">
             <label for="name" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Name:
             </label>
-            <input type="text" placeholder="Input full name" name="name" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
+            <input type="text" placeholder="Input full name" id="name" name="name" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4" value="">
         </div>
 
         <div class="flex flex-col py-2">
             <label for="email" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Email:
             </label>
-            <input type="text" placeholder="Input full email" name="email" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
+            <input type="text" placeholder="Input full email" id="email" name="email" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4" value="">
         </div>
         <div class="flex flex-col py-2">
             <label for="city" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">City:
             </label>
-            <input type="text" placeholder="Input full city" name="city" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500">
+            <input type="text" placeholder="Input full city" id="city" name="city" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500" value="">
         <div class="flex flex-col py-2">
             <label for="Postal code" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Postal code:
             </label>
-            <input type="number" placeholder="Min value" name="postalCodeMin" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
-            <input type="number" placeholder="Max value" name="postalCodeMax" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
+            <input type="number" placeholder="Min value" name="postalCodeMin" id="postalCodeMin" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4" value="">
+            <input type="number" placeholder="Max value" name="postalCodeMax" id="postalCodeMax" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4" value="">
         </div>
         <div class="flex flex-col py-2">
             <label for="address" class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Address:
             </label>
-            <input type="text" placeholder="Input full address" name="address" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4">
+            <input type="text" placeholder="Input full address" name="address" id="address" class="md:w-80 px-3 h-10 rounded-l border-2 border-sky-500 focus:outline-none focus:border-sky-500 w-1/4" value="">
         </div>
         <button type="submit" class=" w-1/4 rounded bg-neutral-100 px-6 py-2 pb-2 pt-2.5 text-xl font-large uppercase leading-normal text-black shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">Filter</button>
     </form>

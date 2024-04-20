@@ -12,7 +12,7 @@ class CustomerFilter extends ApiFilter{
     'email' => ['eq'],
     'city' => ['eq'],
     'address' => ['eq'],
-    'postalCode' => ['eq', 'gt', 'lt']
+    'postalCode' => ['eq', 'gt', 'lt', 'lte', 'gte']
     ];
 
     protected $columnMap = [

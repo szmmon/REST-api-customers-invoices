@@ -28,7 +28,7 @@ class CustomerController extends Controller
         if($includeInvoices) {
             $customers = $customers->with('invoices');
         }
-
+            
             return new CustomerCollection($customers->paginate()->appends($request->query()));
     }
 

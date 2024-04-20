@@ -21,9 +21,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-    Route::get('/customers', [CustomerController::class, 'index']);
+    Route::get('/customers', [CustomerController::class, 'index'])->name('customers.main');
+    Route::post('/customers/filterResult', [CustomerController::class, 'filterResult'])->name('customers.filterResult');
+    Route::get('/customers/filters={type}&{email}&{name}&{city}&{address}&{postalCodeMax}&{postalCodeMin}', [CustomerController::class,'filterApplied'])->name('customers.filterApplied');
     Route::get('/customers/{page}', [CustomerController::class, 'page'])->name('customers.page');
-    Route::get('/customers', [CustomerController::class, 'filterResult'])->name('customers.filterResult');
 });
 
 require __DIR__.'/auth.php';
