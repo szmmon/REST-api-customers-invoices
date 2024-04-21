@@ -17,15 +17,17 @@ class InvoiceFilter extends ApiFilter{
     ];
 
     protected $columnMap = [
-        'postalCode' => 'postal_code'
+        'paidDate' => 'paid_date',
+        'customerId' => 'customer_id',
+        'billedDate' => 'billed_date'
     ];
 
     protected $operatorMap = [
         'eq' => '=',
-        'lt' => '<',
-        'lte' => '<=',
-        'gt' => '>',
-        'gte' => '>=',
+        'lt' => '>',
+        'lte' => '>=',
+        'gt' => '<',
+        'gte' => '<=',
         'ne' => '!='
     ];
 }

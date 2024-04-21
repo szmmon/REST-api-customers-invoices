@@ -62,26 +62,65 @@
     <table class="min-w-1/2 divide-y divide-gray-200 mx-auto">
         <thead>
             <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Postal code</th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Postal code</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
             </tr>
         </thead>
         <tbody class="bg-gray-100 divide-y divide-gray-200">
         @foreach($customers as $customer)            
             <tr>
-                <td class="px-6 py-4 whitespace-nowrap">{{$customer->id}}</td>
-                <td class="px-6 py-4">{{$customer->name}}</td>
-                <td class="px-6 py-4">{{$customer->type}}</td>
-                <td class="px-6 py-4">{{$customer->email}}</td>
-                <td class="px-6 py-4">{{$customer->city}}</td>
-                <td class="px-6 py-4">{{$customer->postalCode}}</td>
-                <td class="px-6 py-4">{{$customer->address}}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{$customer->id}}
+                    <div x-data="{ open: false }">
+                    <button x-on:click="open = ! open" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">View Invoices</button>
+                    <table class="w-1/4 bg-gray-100 divide-y divide-gray-200" 
+                        x-show="open"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 scale-90"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-90">
+
+                        <thead> 
+                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice Id</th>
+                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amout</th>
+                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Billed date</th>
+                            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid date</th>
+                        </thead>
+                        <tbody class="bg-gray-100 divide-y divide-gray-200">
+                            @forelse($invoices as $invoice)
+                                @forelse($invoice as $invoiceData)
+                                <tr>
+                                    @if($invoiceData->customerId == $customer->id)
+                                        <td class="px-1 py-1">{{$invoiceData->id}}</td>
+                                        <td class="px-1 py-1">{{$invoiceData->amount}}</td>
+                                        <td class="px-1 py-1">{{$invoiceData->status}}</td>
+                                        <td class="px-1 py-1">{{$invoiceData->billedDate}}</td>
+                                        <td class="px-1 py-1">{{$invoiceData->paidDate}}</td>
+                                    @endif
+                                @empty
+                                    <td>No invoices</td>
+                                </tr>
+                                @endforelse
+                            @empty
+                            @endforelse
+                        </tbody>
+                
+                        </table>
+
                 </td>
+                <td class="px-3 py-4">{{$customer->name}}</td>
+                <td class="px-3 py-4">{{$customer->type}}</td>
+                <td class="px-3 py-4">{{$customer->email}}</td>
+                <td class="px-3 py-4">{{$customer->city}}</td>
+                <td class="px-3 py-4">{{$customer->postalCode}}</td>
+                <td class="px-3 py-4">{{$customer->address}}</td>
             </tr>
         @endforeach
         </tbody>

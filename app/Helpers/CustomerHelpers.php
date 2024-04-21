@@ -12,6 +12,14 @@ class CustomerHelpers{
         $customersData = $customers->data;
         return $customersData;
     }
+    public function getInvoices(){
+        $invoices = $this->apiCall($invoices=true);
+        $invoices = $invoices->data;
+        for($i = 0; $i< count($invoices); $i++){
+            $invoicesArr[$i] = $invoices[$i]->invoices;
+        }
+        return $invoicesArr;
+    }
 
     public function pageLinks(){
         $customers = $this->ApiCall();
@@ -62,8 +70,13 @@ class CustomerHelpers{
 
 
     
-        public function apiCall(string $page=null, $filter=null){
-        return $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $page . $filter)->getBody()->__toString());
+        public function apiCall(string $page=null, $filter=null, $invoices=true){
+            if (!$invoices){
+                return $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $page . $filter)->getBody()->__toString());
+            }
+            else{
+                return $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $page . $filter . '&includeInvoices=true')->getBody()->__toString());
+            }
     }
 
     public function pageLinksFormat($links){

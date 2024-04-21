@@ -21,9 +21,10 @@ class CustomerController extends Controller
     public function index() 
     {
         $apiData = new CustomerHelpers();
-
+        // dd($apiData->getInvoices());
         return view('customers.index', ['customers' => $apiData->customersDataNoFilters(),
-                                        'links' =>$apiData->pageLinks()]);
+                                        'links' =>$apiData->pageLinks(),
+                                        'invoices' =>$apiData->getInvoices()]);
     }
 
     public function page(string $page)
@@ -31,7 +32,9 @@ class CustomerController extends Controller
         $apiData = new CustomerHelpers();
 
         return view('customers.index', ['customers' => $apiData->customersDataNoFilters($page),
-                                        'links' =>$apiData->pageLinks()]);
+                                        'links' =>$apiData->pageLinks(),
+                                        'invoices' =>$apiData->getInvoices()
+                                        ]);
     }
 
     public function filterResult(Request $request){
@@ -44,7 +47,8 @@ class CustomerController extends Controller
         $apiData = new CustomerHelpers();
 
         return view('customers.index', ['customers' => $apiData->customersDataWithFilters(null,$type, $email, $name, $city, $address, $postalCodeMin, $postalCodeMax),
-                                        'links' =>$apiData->pageLinks()]);
+                                        'links' =>$apiData->pageLinks(),
+                                        'invoices' =>$apiData->getInvoices()]);
     }
     
 }
