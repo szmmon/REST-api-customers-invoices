@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class InvoiceFilter extends ApiFilter{
 
     protected $allowedParms = [
-    'customer_id' => ['eq'],
-    'type' => ['eq'],
+    'id' => ['eq'], 
+    'customerId' => ['eq'],
     'status' => ['eq', 'ne'],
-    'billed_date' => ['eq', 'gt', 'lt', 'lte', 'gte'],
-    'paid_date' => ['eq', 'gt', 'lt', 'lte', 'gte'],
+    'billedDate' => ['eq', 'gt', 'lt', 'lte', 'gte'],
+    'paidDate' => ['eq', 'gt', 'lt', 'lte', 'gte'],
     'amount' => ['eq', 'gt', 'lt', 'lte', 'gte']
     ];
 
@@ -24,10 +24,10 @@ class InvoiceFilter extends ApiFilter{
 
     protected $operatorMap = [
         'eq' => '=',
-        'lt' => '>',
-        'lte' => '>=',
-        'gt' => '<',
-        'gte' => '<=',
+        'lt' => '<',
+        'lte' => '<=',
+        'gt' => '>',
+        'gte' => '>=',
         'ne' => '!='
     ];
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class CustomerHelpers{
 
     public function customersDataNoFilters(string $page=null){
-        $customers = $this->ApiCall($page);
+        $customers = $this->apiCall($page);
         $customersData = $customers->data;
         return $customersData;
     }
@@ -22,7 +22,7 @@ class CustomerHelpers{
     }
 
     public function pageLinks(){
-        $customers = $this->ApiCall();
+        $customers = $this->apiCall();
         $links = $customers->meta->links;
         $url = $this->pageLinksFormat($links);
         return $url;
@@ -51,7 +51,7 @@ class CustomerHelpers{
         if ($postalCodeMax != ' '){
             $filter = $filter . 'postalCode[lte]=' . $postalCodeMax . '&';
         }
-        $customers = $this->ApiCall($page, $filter);
+        $customers = $this->apiCall($page, $filter);
         $customersData = $customers->data;
         return $customersData;
     }
@@ -71,12 +71,8 @@ class CustomerHelpers{
 
     
         public function apiCall(string $page=null, $filter=null, $invoices=true){
-            if (!$invoices){
-                return $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $page . $filter)->getBody()->__toString());
-            }
-            else{
+            
                 return $customers = json_decode(Http::get('http://localhost:8000/api/V1/customers?' . $page . $filter . '&includeInvoices=true')->getBody()->__toString());
-            }
     }
 
     public function pageLinksFormat($links){
