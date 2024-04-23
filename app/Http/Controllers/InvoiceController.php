@@ -55,8 +55,6 @@ class InvoiceController extends Controller
         $customerId = $invoice->customer_id;
         $amount = $invoice->amount;
         $status = $invoice->status;
-        $paidDate = $invoice->paid_date;
-
-        $request 
+        $paidDate = $invoice->paid_date; 
     }
 }
