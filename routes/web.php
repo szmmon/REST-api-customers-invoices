@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
     //invoices
     Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.main');
     Route::post('/invoices/filterResult', [InvoiceController::class, 'filterResult'])->name('invoices.filterResult');
+    Route::post('/invoices/update/{$invoice}', [InvoiceController::class, 'update'])->name('invoices.updateInvoice');
+    Route::get('/invoices/edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
     Route::get('/invoices/filters={id}&{customerId}&{status}&{billedDate}&{paidDate}&{amountMin}&{amountMax}', [InvoiceController::class,'filterApplied'])->name('invoices.filterApplied');
     Route::get('/invoices/{page}', [InvoiceController::class, 'page'])->name('invoices.page');
 

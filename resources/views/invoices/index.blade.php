@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Customers
+            Invoices
         </h2>
     </x-slot>
-<h1 class="px-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight">Filters</h1>
+<div class="px-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight text-justify">Filters | <a href="">Create Invoice</a></div>
 <div x-data="{ open: false }">
     <button x-on:click="open = ! open" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">Toggle Dropdown</button>
 
@@ -68,6 +68,7 @@
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Billed Date</th>
                 <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid date</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
             </tr>
         </thead>
         <tbody class="bg-gray-100 divide-y divide-gray-200">
@@ -79,6 +80,10 @@
                 <td class="px-3 py-4">{{$invoice->status}}</td>
                 <td class="px-3 py-4">{{$invoice->billedDate}}</td>
                 <td class="px-3 py-4">{{$invoice->paidDate}}</td>
+                <td class="px-3 py-4">
+                <a href="{{route('invoices.edit', $invoice->id) }}"><button class="btn btn-secondary sm">edit</button></a>
+                <a href=""><button class="btn btn-success sm">create pdf</button></a>
+                </td>
             </tr>
         @endforeach
         </tbody>

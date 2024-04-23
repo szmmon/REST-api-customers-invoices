@@ -15,6 +15,9 @@ class InvoiceHelpers{
     public function apiCall(string $page=null, $filters=null){
                 return $invoices = json_decode(Http::get('http://localhost:8000/api/V1/invoices?' . $page . $filters)->getBody()->__toString());
     }
+    public function apiCallEdit(string $page=null, $filters=null){
+                return $invoices = json_decode(Http::get('http://localhost:8000/api/V1/invoices?')->getBody()->__toString());
+    }
     public function pageLinks(){
         $invoices = $this->apiCall();
         $links = $invoices->meta->links;

@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Http;
 use App\Helpers\InvoiceHelpers;
-
+use App\Models\Invoice;
 
 class InvoiceController extends Controller
 {
@@ -41,9 +41,22 @@ class InvoiceController extends Controller
 
     public function filterApplied($id, $customerId, $status, $billedDate, $paidDate, $amountMin, $amountMax){
         $apiData = new InvoiceHelpers();
-        // dd($apiData->invoicesDataWithFilters(null,$id, $customerId, $status, $billedDate, $paidDate,  $amountMin, $amountMax));
         return view('invoices.index', ['invoices' => $apiData->invoicesDataWithFilters($page=null, $id, $customerId, $status, $billedDate, $paidDate, $amountMin, $amountMax),
                                         'links' =>$apiData->pageLinks()]);
     }
-    
+
+    public function edit(Invoice $invoice){
+        return view('invoices.edit', [
+            'invoice' => $invoice
+        ]);
+    }
+    public function update(Invoice $invoice){
+        $id = $invoice->id;
+        $customerId = $invoice->customer_id;
+        $amount = $invoice->amount;
+        $status = $invoice->status;
+        $paidDate = $invoice->paid_date;
+
+        $request 
+    }
 }
