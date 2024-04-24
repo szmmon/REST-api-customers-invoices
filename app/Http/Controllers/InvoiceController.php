@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\InvoiceGenerateHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\V1\InvoiceController as InvoiceApi;
 use App\Http\Requests\V1\StoreFilterRequest;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Http;
 use App\Helpers\InvoiceHelpers;
 use App\Http\Requests\V1\StoreInvoiceRequest;
 use App\Models\Invoice;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
+use LaravelDaily\Invoices\Invoice as InvoicePdf;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class InvoiceController extends Controller
 {
@@ -76,4 +83,9 @@ class InvoiceController extends Controller
         }
     }
 
+        public function generateInvoice(Invoice $invoice){
+            $invoicePdf = new InvoiceGenerateHelpers();
+            return $invoicePdf->generateInvoice($invoice);
+            
+    }
 }

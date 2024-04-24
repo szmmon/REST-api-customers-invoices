@@ -82,7 +82,7 @@
                 <td class="px-3 py-4">{{$invoice->paidDate}}</td>
                 <td class="px-3 py-4">
                 <a href="{{route('invoices.editInvoice', $invoice->id) }}"><button class="btn btn-secondary sm">edit</button></a>
-                <a href=""><button class="btn btn-success sm">create pdf</button></a>
+                <a href="{{route('invoices.generateInvoice', $invoice->id) }}"><button class="btn btn-success sm">generate pdf</button></a>
                 </td>
             </tr>
         @endforeach
