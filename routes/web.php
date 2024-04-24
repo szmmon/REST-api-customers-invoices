@@ -31,11 +31,15 @@ Route::middleware('auth')->group(function () {
     
     //invoices
     Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.main');
+    Route::post('/invoices/create', [InvoiceController::class, 'storeInvoice'])->name('invoices.storeInvoice');
+    Route::get('/invoices/create', [InvoiceController::class, 'createInvoice'])->name('invoices.createInvoice');
+    Route::post('/invoices/{invoice}', [InvoiceController::class, 'updateInvoice'])->name('invoices.updateInvoice');
     Route::post('/invoices/filterResult', [InvoiceController::class, 'filterResult'])->name('invoices.filterResult');
-    Route::post('/invoices/update/{$invoice}', [InvoiceController::class, 'update'])->name('invoices.updateInvoice');
-    Route::get('/invoices/edit/{invoice}', [InvoiceController::class, 'edit'])->name('invoices.edit');
+    Route::get('/invoices/edit/{invoice}', [InvoiceController::class, 'editInvoice'])->name('invoices.editInvoice');
     Route::get('/invoices/filters={id}&{customerId}&{status}&{billedDate}&{paidDate}&{amountMin}&{amountMax}', [InvoiceController::class,'filterApplied'])->name('invoices.filterApplied');
     Route::get('/invoices/{page}', [InvoiceController::class, 'page'])->name('invoices.page');
+    
+    
 
 });
 

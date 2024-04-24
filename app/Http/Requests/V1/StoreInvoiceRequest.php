@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\V1;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class StoreInvoiceRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StoreInvoiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,20 @@ class StoreInvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'customerId' => ['required', 'integer'],
+            'amount' => ['required', 'numeric'],
+            'status' => ['required', ValidationRule::in(['B', 'P', 'V', 'b', 'p', 'v'])],
+            'billedDate' => ['required', 'date_format:Y-m-d H:i:s'],
+            'paidDate' => ['nullable', 'date_format:Y-m-d H:i:s'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'customer_id' => $this->customerId,
+            'billed_date' => $this->billedDate,
+            'paid_date' => $this->paidDate,
+        ]);
     }
 }

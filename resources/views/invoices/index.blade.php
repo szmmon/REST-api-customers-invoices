@@ -4,11 +4,11 @@
             Invoices
         </h2>
     </x-slot>
-<div class="px-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight text-justify">Filters | <a href="">Create Invoice</a></div>
+<div class="px-6 font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight text-justify">Filters | <a href="{{route('invoices.createInvoice')}}">Create Invoice</a></div>
 <div x-data="{ open: false }">
     <button x-on:click="open = ! open" class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">Toggle Dropdown</button>
 
-    <form method="POST" action="{{ route('invoices.filterResult') }}"
+    <form method="POST" action="{{ route('invoices.filterResult') }}
         class="px-4 flex flex-col" x-show="open"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-90"
@@ -81,7 +81,7 @@
                 <td class="px-3 py-4">{{$invoice->billedDate}}</td>
                 <td class="px-3 py-4">{{$invoice->paidDate}}</td>
                 <td class="px-3 py-4">
-                <a href="{{route('invoices.edit', $invoice->id) }}"><button class="btn btn-secondary sm">edit</button></a>
+                <a href="{{route('invoices.editInvoice', $invoice->id) }}"><button class="btn btn-secondary sm">edit</button></a>
                 <a href=""><button class="btn btn-success sm">create pdf</button></a>
                 </td>
             </tr>

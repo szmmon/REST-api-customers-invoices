@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Http;
 use App\Helpers\InvoiceHelpers;
+use App\Http\Requests\V1\StoreInvoiceRequest;
 use App\Models\Invoice;
 
 class InvoiceController extends Controller
@@ -45,16 +46,34 @@ class InvoiceController extends Controller
                                         'links' =>$apiData->pageLinks()]);
     }
 
-    public function edit(Invoice $invoice){
+    public function editInvoice(Invoice $invoice){
         return view('invoices.edit', [
             'invoice' => $invoice
         ]);
     }
-    public function update(Invoice $invoice){
-        $id = $invoice->id;
-        $customerId = $invoice->customer_id;
-        $amount = $invoice->amount;
-        $status = $invoice->status;
-        $paidDate = $invoice->paid_date; 
+    public function createInvoice(){
+        return view('invoices.create');
     }
+    public function storeInvoice(StoreInvoiceRequest $request){
+        $data = new InvoiceHelpers();
+        $response = $data->createInvoice($request);
+        if ($response->ok()){
+            redirect()->action([InvoiceController::class,'index'])->send();
+        }
+        else{
+            redirect()->action([InvoiceController::class,'index'])->with('status', 'error')->send();
+        }
+    }
+
+    public function updateInvoice(Request $request, Invoice $invoice){
+        $apiCall = new InvoiceHelpers();
+        $response = $apiCall->editInvoice($request, $invoice);
+        if ($response->ok()){
+            redirect()->action([InvoiceController::class,'index'])->send();
+        }
+        else{
+            redirect()->action([InvoiceController::class,'index'])->with('status', 'error')->send();
+        }
+    }
+
 }

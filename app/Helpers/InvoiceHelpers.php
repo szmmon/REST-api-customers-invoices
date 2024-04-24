@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Http\Requests\V1\StoreInvoiceRequest;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -15,8 +17,32 @@ class InvoiceHelpers{
     public function apiCall(string $page=null, $filters=null){
                 return $invoices = json_decode(Http::get('http://localhost:8000/api/V1/invoices?' . $page . $filters)->getBody()->__toString());
     }
-    public function apiCallEdit(string $page=null, $filters=null){
-                return $invoices = json_decode(Http::get('http://localhost:8000/api/V1/invoices?')->getBody()->__toString());
+    public function editInvoice(Request $request,Invoice $invoice){
+        if($request->status == null){
+            $status = $invoice->status;
+        }else{
+            $status = $request->status;
+        }
+        $response = Http::put('http://localhost:8000/api/V1/invoices/' . $invoice->id, [
+            'id' => $invoice->id,
+            'customerId' => $request->customerId,
+            'amount' => $request->amount,
+            'status' => $status,
+            'billedDate' => $request->billedDate
+        ]);
+        return $response;   
+    }
+
+    public function createInvoice(StoreInvoiceRequest $request){
+        $data = $request->validated();
+        $response = Http::post('http://localhost:8000/api/V1/invoices/', [
+            'customerId' => $data['customerId'],
+            'amount' => $data['amount'],
+            'status' => $data['status'],
+            'billedDate' => $data['billedDate'],
+            'paidDate' => $data['paidDate']
+        ]);
+        return $response;
     }
     public function pageLinks(){
         $invoices = $this->apiCall();

@@ -33,7 +33,7 @@ class UpdateInvoiceRequest extends FormRequest
         ];
         }elseif ($method == 'PATCH')
         { return [       
-            'customerId' => ['sometimes', 'required', 'numeric'],
+            'customerId' => ['required', 'numeric'],
             'amount' => ['sometimes', 'required', 'numeric'],
             'status' => ['sometimes', 'required', Rule::in(['B', 'P', 'V', 'b', 'p', 'v'])],
             'billedDate' => ['sometimes', 'required', 'date_format:Y-m-d H:i:s'],
