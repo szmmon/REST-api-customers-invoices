@@ -3,9 +3,9 @@
 
 Api made for working with customer-invoice data, tested with postman. Front-end done with inertia.js and tailwind css. 
 
-[API use case](doc:linking-to-pages#API)
+[API use case](#API)
 
-[GIF demo](doc:linking-to-pages#Presentation)
+[GIF demo](#Presentation)
 ## API 
 
 #### Get all customers
