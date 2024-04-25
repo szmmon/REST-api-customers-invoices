@@ -1,7 +1,7 @@
 
 # Invoice-customer REST api laravel
 
-Api made for working with customer-invoice data, tested with postman. Front-end done with inertia.js and tailwind css. 
+Api made for working with customer-invoice data, tested with postman. Front-end done with alpine.js and tailwind css. 
 
 [API use case](#API)
 
