@@ -88,4 +88,4 @@ class InvoiceController extends Controller
             return $invoicePdf->generateInvoice($invoice);
             
     }
-}
+}   
